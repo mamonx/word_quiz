@@ -5,6 +5,16 @@
     <title>回答結果</title>
 </head>
 <body>
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo '設問に答えてからアクセスしてください。';
+    exit;
+}
+
+var_dump($_POST);
+
+?>
 <table align="center" border  width="980" >
     <tr>
         <td width="10%" align="center">
