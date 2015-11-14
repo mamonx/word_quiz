@@ -43,12 +43,4 @@ class Quiz
         }
     }
 
-    public function generator()
-    {
-        /** @var QuizEntity $quiz */
-        foreach ($this->quizzes as $quiz) {
-            yield $quiz->getId() => $quiz;
-        }
-    }
-
 }

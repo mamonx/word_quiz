@@ -26,8 +26,8 @@ foreach ($config['questions'] as $id => $question) {
 <!-- ここに頑張って あの単語クイズに似た HTMLを記述してください -->
 <form action="result.php" method="post">
     <br>
+    <?php $quiz->each(function($q) { ?>
     <?php /** @var \App\System\QuizEntity $q */ ?>
-    <?php foreach($quiz->generator() as $q): ?>
         <table align="center" border  Width="300">
             <tr>
                 <td width="30%" Align="left"><?= $q->getSubject() ?></td>
@@ -41,7 +41,7 @@ foreach ($config['questions'] as $id => $question) {
                 </td>
             </tr>
         </table>
-    <?php endforeach ?>
+    <?php }); ?>
     <p align="center">
         <input type="submit" value="送信する">
     </p>
