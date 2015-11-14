@@ -92,17 +92,17 @@
             </Td>
         </Tr>
     </table>
-    <Table align="center" border  Width="300" Height="50">
-        <Tr>
-            <Td width="30%" Align="left">
+    <table align="center" border  Width="300" Height="50">
+        <tr>
+            <td width="30%" Align="left">
                 stagnation
-            </Td>
-            <Td width="70%" Align="center">
+            </td>
+            <td width="70%" Align="center">
                 <input type="radio" name="select8" value="1" >肥沃<br>
                 <input type="radio" name="select8" value="2">苦痛<br>
                 <input type="radio" name="select8" value="3">沈滞
-            </Td>
-        </Tr>
+            </td>
+        </tr>
     </table>
     <Table align="center" border  Width="300" Height="50">
         <Tr>
