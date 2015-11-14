@@ -1,21 +1,4 @@
-<?php
-$config = [];
-require_once __DIR__ . '/System/Config/questions.php';
-require_once __DIR__ . '/System/App/Quiz.php';
-require_once __DIR__ . '/System/App/QuizEntity.php';
-
-$quiz = new \App\System\Quiz();
-
-foreach ($config['questions'] as $id => $question) {
-    $entity = new \App\System\QuizEntity();
-    $entity->setId($id)
-        ->setSubject($question['subject'])
-        ->setChoice($question['choice'])
-        ->setAnswer($question['answer']);
-    $quiz->add($entity);
-}
-
-?>
+<?php require __DIR__ . '/.before.php' ?>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -32,7 +15,7 @@ foreach ($config['questions'] as $id => $question) {
             <tr>
                 <td width="30%" Align="left"><?= $q->getSubject() ?></td>
                 <td width="70%" Align="center">
-                    <?php foreach($q->getChoice() as $choiceId => $choice): ?>
+                    <?php foreach($q->getChoices() as $choiceId => $choice): ?>
                         <p>
                             <input type="radio" name="Answer[<?= $q->getId() ?>]" value="<?= $choiceId ?>" >
                             <?= htmlspecialchars($choice) ?>

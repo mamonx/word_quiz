@@ -26,9 +26,17 @@ class QuizEntity
         return $this->answer;
     }
 
-    public function getChoice()
+    public function getChoices()
     {
         return $this->choice;
+    }
+
+    public function getChoice($number)
+    {
+        if (isset($this->choice[$number])) {
+            return $this->choice[$number];
+        }
+        return null;
     }
 
     public function getSubject()

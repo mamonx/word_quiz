@@ -1,3 +1,16 @@
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $errorMessage = '設問に答えてからアクセスしてください。';
+    require $errorMessage;
+    exit;
+}
+
+require_once '.before.php';
+
+$answers = isset($_POST['Answer']) ? $_POST['Answer'] : [];
+
+?>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -5,146 +18,29 @@
     <title>回答結果</title>
 </head>
 <body>
-<?php
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo '設問に答えてからアクセスしてください。';
-    exit;
-}
-
-var_dump($_POST);
-
-?>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            stagnation
-        </td>
-        <td width="60%" align="center">
-            中心の
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            taxation
-        </td>
-        <td width="60%" align="center">
-            課税
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            cosmic
-        </td>
-        <td width="60%" align="center">
-            宇宙の
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            airy
-        </td>
-        <td width="60%" align="center">
-            風通しのよい
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            residency
-        </td>
-        <td width="60%" align="center">
-            公邸
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            aspiration
-        </td>
-        <td width="60%" align="center">
-            強い願望
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            mentor
-        </td>
-        <td width="60%" align="center">
-            指導者
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            stagnation
-        </td>
-        <td width="60%" align="center">
-            沈滞
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            martial
-        </td>
-        <td width="60%" align="center">
-            戦争の
-        </td>
-    </tr>
-</table>
-<table align="center" border  width="980" >
-    <tr>
-        <td width="10%" align="center">
-            正解
-        </td>
-        <td width="30%" align="left">
-            gallows
-        </td>
-        <td width="60%" align="center">
-            絞首台
-        </td>
-    </tr>
-</table>
-
+<?php if ($quiz->judge($answers)): ?>
+    <?php $quiz->each(function($q) use ($answers){ ?>
+        <?php /** @var \App\System\QuizEntity $q */ ?>
+        <table align="center" border  Width="300">
+            <tr>
+                <td width="10%" align="center">
+                    <?= $q->getAnswer() === (int)$answers[$q->getId()] ? '正解' : '不正解' ?>
+                </td>
+                <td width="30%" align="left">
+                    <?= $q->getSubject() ?>
+                </td>
+                <td width="60%" align="center">
+                    <?= $q->getChoice($q->getAnswer()) ?>
+                </td>
+            </tr>
+        </table>
+    <?php }); ?>
+<?php else: ?>
+    <?php foreach($quiz->errors() as $number => $error): ?>
+        <p style="color: red">
+            問<?= $number ?>: <?= $error ?>
+        </p>
+    <?php endforeach ?>
+<?php endif ?>
 </body>
 </html>
