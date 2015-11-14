@@ -38,34 +38,42 @@ class QuizEntity
 
     /**
      * @param int $id
+     * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
      * @param int $answer
+     * @return $this
      */
     public function setAnswer($answer)
     {
         $this->answer = $answer;
+        return $this;
     }
 
     /**
      * @param array $choice
+     * @return $this
      */
     public function setChoice(array $choice)
     {
         $this->choice = $choice;
+        return $this;
     }
 
     /**
      * @param string $subject
+     * @return $this
      */
     public function setSubject($subject)
     {
         $this->subject = $subject;
+        return $this;
     }
 
     public function isEmpty()
