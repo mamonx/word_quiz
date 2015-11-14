@@ -1,4 +1,4 @@
-# word_quiz
+﻿# word_quiz
 aaaaaaaa
 
-うおおおおおおおえjうぃあおいえあw
+うおおおおおおおえjうぃあおいえあwaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
