@@ -60,9 +60,22 @@ class QuizEntity
         $this->choice = $choice;
     }
 
+    /**
+     * @param string $subject
+     */
     public function setSubject($subject)
     {
-        $this->subject;
+        $this->subject = $subject;
     }
 
+    public function isEmpty()
+    {
+        $params = ['id', 'subject', 'choice', 'answer'];
+        foreach ($params as $param) {
+            if (!isset($this->{$param})) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
