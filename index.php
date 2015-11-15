@@ -8,56 +8,42 @@
     <title>単語クイズ</title>
 </head>
 <body>
-<form action="result.php" method="post">
-    <?php $quiz->each(function($q) { ?>
-    <?php /** @var \App\System\QuizEntity $q */ ?>
+
 <div class="container">
-<div class="row">
-    <div class="col-md-12">
-        <table class="table">
-            <tbody>
-            <tr>
-                <th><?= $q->getSubject() ?></th>
-                <td>
-                    <?php foreach($q->getChoices() as $choiceId => $choice): ?>
-                        <p class="text-center">
-                            <input type="radio" name="Answer[<?= $q->getId() ?>]" value="<?= $choiceId ?>" >
-                            <?= htmlspecialchars($choice) ?>
-                        </p>
-                    <?php endforeach ?>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>単語クイズ</h2>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form action="result.php" method="post">
+
+                <table class="table table-bordered">
+                    <tbody>
+                    <?php $quiz->each(function($q) { ?>
+                    <?php /** @var \App\System\QuizEntity $q */ ?>
+                    <tr>
+                        <th style="vertical-align: middle"><?= $q->getSubject() ?></th>
+                        <td style="padding-top: 20px;text-indent: 1em">
+                            <?php foreach($q->getChoices() as $choiceId => $choice): ?>
+                                <p class="text-left">
+                                    <input type="radio" name="Answer[<?= $q->getId() ?>]" value="<?= $choiceId ?>" >
+                                    <?= htmlspecialchars($choice) ?>
+                                </p>
+                            <?php endforeach ?>
+                        </td>
+                    </tr>
+                    <?php }); ?>
+                    </tbody>
+                </table>
+                <p class="text-center">
+                    <input class="btn btn-lg btn-primary" type="submit" value="送信する"/>
+                </p>
+            </form>
+        </div>
     </div>
 </div>
-</div>
-    <?php }); ?>
-    <p align="center">
-        <input type="submit" value="送信する">
-    </p>
-<!-- ここに頑張って あの単語クイズに似た HTMLを記述してください -->
-<form action="result.php" method="post">
-    <br>
-    <?php $quiz->each(function($q) { ?>
-    <?php /** @var \App\System\QuizEntity $q */ ?>
-        <table align="center" border  Width="300">
-            <tr>
-                <td width="30%" Align="left"><?= $q->getSubject() ?></td>
-                <td width="70%" Align="center">
-                    <?php foreach($q->getChoices() as $choiceId => $choice): ?>
-                        <p>
-                            <input type="radio" name="Answer[<?= $q->getId() ?>]" value="<?= $choiceId ?>" >
-                            <?= htmlspecialchars($choice) ?>
-                        </p>
-                    <?php endforeach ?>
-                </td>
-            </tr>
-        </table>
-    <?php }); ?>
-    <p align="center">
-        <input type="submit" value="送信する">
-    </p>
-</form>
 </body>
 </html>
