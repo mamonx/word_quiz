@@ -3,6 +3,7 @@
 require_once __DIR__ . '/System/Config/questions.php';
 require_once __DIR__ . '/System/App/Quiz.php';
 require_once __DIR__ . '/System/App/QuizEntity.php';
+require_once __DIR__ . '/System/App/ScoreTable.php';
 
 $quiz = new \App\System\Quiz();
 

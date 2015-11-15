@@ -2,13 +2,14 @@
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $errorMessage = '設問に答えてからアクセスしてください。';
-    require $errorMessage;
+    require '.error.php';
     exit;
 }
 
 require_once '.before.php';
 
 $answers = isset($_POST['Answer']) ? $_POST['Answer'] : [];
+$quiz->setAnswer($answers);
 
 ?>
 <!doctype html>
@@ -21,22 +22,29 @@ $answers = isset($_POST['Answer']) ? $_POST['Answer'] : [];
 </head>
 <body>
 <div class="container">
+<?php if ($quiz->judge()): ?>
     <div class="row">
         <div class="col-md-12">
             <h2>回答結果</h2>
             <hr/>
         </div>
     </div>
+    <!--  ここにスコア表示をいい感じにしといてくださいな (プログラムは作っといたから見た目よろ)  -->
+    <div class="row">
+        <?= $quiz->score()->comment() ?>
+        <?= $quiz->score()->comparison() ?>
+    </div>
     <div class="row">
         <div class="col-md-12">
         <table class="table table-bordered">
             <tbody>
-            <?php if ($quiz->judge($answers)): ?>
             <?php $quiz->each(function($q) use ($answers){ ?>
             <?php /** @var \App\System\QuizEntity $q */ ?>
             <tr>
                 <td>
-                    <?= $q->getAnswer() === (int)$answers[$q->getId()] ? '正解' : '不正解' ?>
+                    <?= $q->getAnswer() === (int)$answers[$q->getId()] ?
+                        '<span class="text-success">正解</span>' :
+                        '<span class="text-danger">不正解</span>' ?>
                 </td>
                 <th>
                     <?= $q->getSubject() ?>
@@ -50,13 +58,17 @@ $answers = isset($_POST['Answer']) ? $_POST['Answer'] : [];
         </table>
         </div>
     </div>
-</div>
 <?php else: ?>
-    <?php foreach($quiz->errors() as $number => $error): ?>
-        <p style="color: red">
-            問<?= $number ?>: <?= $error ?>
-        </p>
-    <?php endforeach ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?php foreach($quiz->errors() as $number => $error): ?>
+                <p style="color: red">
+                    問<?= $number ?>: <?= $error ?>
+                </p>
+            <?php endforeach ?>
+        </div>
+    </div>
 <?php endif ?>
+</div>
 </body>
 </html>
